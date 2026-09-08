@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix TV - Who's Watching?</title>
+  <!-- Global Root Directory Website Main Favicon Icon Link -->
+  <link rel="icon" type="image/png" href="Main-Icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="gate-body">
+
+  <div class="netflix-bg-overlay"></div>
+
+  <!-- Official Netflix Logo -->
+  <header class="brand-header">
+    <div class="logo">
+      <svg viewBox="0 0 111 30" xmlns="http://w3.org">
+        <path d="M10.5 0h6v30h-6zM26.4 0h6.1v12.2L42.2 0h6.6v30h-6.1V17.8L33 30h-6.6zM0 0h6v30H0zM57.6 0h17.9v5.4H63.6v6.5h10.7v5.4H63.6v12.7h-6zM82.8 0h6v24.6h11.7V30H82.8z" fill="#E50914"/>
+      </svg>
+    </div>
+  </header>
+
+  <div class="tv-container" id="profileGate">
+    <h1 class="tv-title">Who's watching?</h1>
+    
+    <div class="profile-row">
+      <div class="profile-card active" data-name="Alex" data-avatar="Assets/Netflix-avatar1.png">
+        <div class="avatar-wrapper"><img src="Assets/Netflix-avatar1.png" alt="Profile 1"></div>
+        <span class="profile-label">Alex</span>
+      </div>
+      <div class="profile-card" data-name="Sarah" data-avatar="Assets/Netflix-avatar2.png">
+        <div class="avatar-wrapper"><img src="Assets/Netflix-avatar2.png" alt="Profile 2"></div>
+        <span class="profile-label">Sarah</span>
+      </div>
+      <div class="profile-card" data-name="Jordan" data-avatar="Assets/Netflix-avatar3.png">
+        <div class="avatar-wrapper"><img src="Assets/Netflix-avatar3.png" alt="Profile 3"></div>
+        <span class="profile-label">Jordan</span>
+      </div>
+      <div class="profile-card" data-name="Guest" data-avatar="Assets/Netflix-avatar4.png">
+        <div class="avatar-wrapper"><img src="Assets/Netflix-avatar4.png" alt="Profile 4"></div>
+        <span class="profile-label">Guest</span>
+      </div>
+    </div>
+    <button class="tv-manage-btn" id="manageBtn">Manage Profiles</button>
+  </div>
+
+  <div class="loading-screen hidden" id="spinnerOverlay">
+    <div class="netflix-spinner"></div>
+  </div>
+
+  <script src="profile.js"></script>
+</body>
+</html>

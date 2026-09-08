@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix TV - Browse</title>
+  <!-- Global Root Directory Website Main Favicon Icon Link -->
+  <link rel="icon" type="image/png" href="Main-Icon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+  <aside class="tv-sidebar" id="sidebarMenu">
+    <div class="sidebar-icon" id="side-search" data-menu="search">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/></svg>
+      <span class="sidebar-text">Search</span>
+    </div>
+    <div class="sidebar-icon active" id="side-home" data-menu="home">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" fill="currentColor"/></svg>
+      <span class="sidebar-text">Home</span>
+    </div>
+    <div class="sidebar-icon" id="side-mylist" data-menu="mylist">
+      <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/></svg>
+      <span class="sidebar-text">My List</span>
+    </div>
+  </aside>
+
+  <div class="user-widget">
+    <span class="widget-name" id="userName">User</span>
+    <img src="" alt="Avatar" class="widget-avatar" id="userAvatar">
+  </div>
+
+  <div class="scroll-container" id="scrollContainer">
+    <div class="view-panel hidden" id="searchPanel">
+      <div class="search-box-frame" id="searchBoxFrame">
+        <div class="search-input-line" id="searchBarText">Search by titles... [Type on your Keyboard]</div>
+      </div>
+      <div class="search-results-grid" id="searchResultsContainer"></div>
+    </div>
+
+    <main class="view-panel" id="homePanel">
+      <section class="billboard">
+        <div class="billboard-title-wrapper" id="billTitleArea">
+          <h1 class="billboard-title" id="billTitle">BELIEVER</h1>
+        </div>
+        <p class="billboard-desc" id="billDesc">An all-star look into dynamic cinema, parody layers, and the custom backend architectures powering premium streaming systems.</p>
+      </section>
+
+      <div class="content-catalog">
+        <div class="catalog-row">
+          <h2 class="row-heading">Popular on Netflix</h2>
+          <div class="movie-slider" id="row0"></div>
+        </div>
+        <div class="catalog-row">
+          <h2 class="row-heading">Blockbuster Comedies</h2>
+          <div class="movie-slider" id="row1"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="info-modal-overlay hidden" id="infoModal">
+    <div class="info-modal-card">
+      <h2 class="info-modal-title" id="infoModalTitle">Movie Title</h2>
+      <div class="info-modal-meta">
+        <span class="match-badge">98% Match</span>
+        <span class="year-badge" id="infoModalYear">2001</span>
+        <span class="maturity-badge">PG-13</span>
+      </div>
+      <p class="info-modal-desc" id="infoModalDesc">Detailed description lines print directly inside this frame context zone block.</p>
+      <div class="info-actions-hint">Press [Enter] to Play • Press [Backspace / Esc] to Close</div>
+    </div>
+  </div>
+
+  <div class="player-overlay hidden" id="videoPlayerOverlay">
+    <video id="tvNativeVideo" preload="auto"></video>
+    
+    <div class="player-controls" id="playerControlsHud">
+      <div class="player-gradient-top"></div>
+      <div class="player-gradient-bottom"></div>
+      
+      <div class="player-header">
+        <div class="back-hint">← Press [Backspace / Esc] to Exit</div>
+        <h2 class="player-movie-title" id="playerMovieTitle">Movie Title</h2>
+      </div>
+
+      <div class="player-footer">
+        <div class="scrub-timeline">
+          <div class="scrub-bar-total"><div class="scrub-bar-progress" id="playerProgressBar"></div></div>
+        </div>
+        
+        <div class="player-hud-row">
+          <div class="hud-left-controls">
+            <div class="hud-btn" id="hud-back5">
+              <svg viewBox="0 0 24 24"><path d="M12.5 3c-4.97 0-9 4.03-9 9H1l4 4 4-4H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9z" fill="currentColor"/></svg>
+              <span class="hud-btn-subtext">Skip Back 5s</span>
+            </div>
+            
+            <div class="hud-btn active" id="hud-play-pause">
+              <svg id="playPauseIcon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" fill="currentColor"/></svg>
+              <span class="hud-btn-subtext" id="playBtnLabel">Pause</span>
+            </div>
+            
+            <div class="hud-btn" id="hud-fwd5">
+              <svg viewBox="0 0 24 24"><path d="M11.5 3C6.53 3 2.5 7.03 2.5 12s4.03 9 9 9 9-4.03 9-9h-2.5c0 3.87-3.13 7-7 7s-7-3.13-7-7 3.13-7 7-7 7 3.13 7 7h3.5c0-4.97-4.03-9-9-9z" fill="currentColor"/></svg>
+              <span class="hud-btn-subtext">Skip Forward 5s</span>
+            </div>
+            
+            <div class="hud-btn" id="hud-volume-control">
+              <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" fill="currentColor"/></svg>
+              <div class="hud-volume-popup">
+                <div class="volume-slider-track">
+                  <div class="volume-slider-progress" id="volumeIndicatorBar"></div>
+                </div>
+                <span id="volumePercentageLabel">100%</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="playback-time-label" id="playerTimeTracker">0:00 / 0:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="select.js"></script>
+  <script src="update.js"></script>
+  <script src="video.js"></script>
+  <script src="script.js"></script>
+  <script src="controls.js"></script>
+</body>
+</html>

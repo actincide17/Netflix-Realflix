@@ -1,0 +1,347 @@
+/* Core Styling Variables & Reset Rules */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: #141414;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  overflow: hidden;
+  user-select: none;
+  cursor: none;
+}
+
+/* ---------------- PROFILE GATE SCREEN SELECTION ---------------- */
+.netflix-bg-overlay { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(20,20,20,0.15) 0%, rgba(0,0,0,0.85) 100%); z-index: 1; }
+.brand-header { position: absolute; top: 6vh; left: 6vw; z-index: 10; }
+.logo { width: 145px; height: auto; }
+.tv-container { position: relative; z-index: 2; text-align: center; width: 100%; max-width: 1200px; margin: auto; padding-top: 25vh; }
+.tv-title { font-size: 3.5rem; font-weight: 400; margin-bottom: 3.5rem; letter-spacing: 1px; }
+.profile-row { display: flex; justify-content: center; gap: 2.5rem; margin-bottom: 5rem; }
+.profile-card { display: flex; flex-direction: column; align-items: center; width: 10vw; min-width: 120px; transition: transform 0.25s cubic-bezier(0.33, 1, 0.68, 1); }
+.avatar-wrapper { width: 100%; aspect-ratio:1; border-radius: 4px; overflow: hidden; border: 4px solid transparent; transition: all 0.2s; }
+.avatar-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+.profile-label { color: #808080; font-size: 1.3rem; margin-top: 1.2rem; transition: color 0.2s; }
+
+.profile-card.active { transform: scale(1.12); }
+.profile-card.active .avatar-wrapper { border-color: #e5e5e5; box-shadow: 0 15px 30px rgba(0,0,0,0.7); }
+.profile-card.active .profile-label { color: #fff; }
+.tv-manage-btn { background: transparent; border: 1.5px solid #808080; color: #808080; text-transform: uppercase; padding: 0.6rem 2rem; font-size: 1.1rem; letter-spacing: 2px; }
+.tv-manage-btn.active { background-color: #e5e5e5; border-color: #e5e5e5; color: #000; transform: scale(1.05); }
+
+.loading-screen { position: fixed; inset: 0; background-color: #141414; z-index: 999; display: flex; align-items: center; justify-content: center; }
+.loading-screen.hidden { display: none; }
+.netflix-spinner { width: 65px; height: 65px; border: 6px solid rgba(0, 0, 0, 0.1); border-top-color: #e50914; border-radius: 50%; animation: spin 0.85s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---------------- MAIN TV INTERFACE LAYOUT ---------------- */
+.dashboard-body { display: flex; padding-left: 8vw; background-color: #141414; }
+
+/* 1:1 Precise Dynamic Interactive Sidebar */
+.tv-sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 8vw; background-color: #0000003b; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2.5rem; padding-left: 2vw; border-right: 1px solid rgba(255,255,255,0.01); z-index: 100; transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s; }
+.tv-sidebar.expanded { width: 18vw; background-color: #000000fb; box-shadow: 20px 0 40px rgba(0,0,0,0.6); }
+
+.sidebar-icon { display: flex; align-items: center; gap: 1.5rem; width: 100%; color: #808080; opacity: 0.5; transition: all 0.2s ease; font-weight: 500; font-size: 1.2rem; }
+.sidebar-icon svg { width: 28px; height: 28px; min-width: 28px; }
+.sidebar-icon .sidebar-text { opacity: 0; transform: translateX(-10px); transition: all 0.25s ease; white-space: nowrap; }
+.tv-sidebar.expanded .sidebar-text { opacity: 1; transform: translateX(0); }
+
+/* Sidebar Active & Focus Selection States */
+.sidebar-icon.active-focused { color: #fff; opacity: 1; transform: scale(1.05); }
+.sidebar-icon.active { color: #e50914; opacity: 1; }
+
+.user-widget { position: absolute; top: 5vh; right: 5vw; display: flex; align-items: center; gap: 1rem; z-index: 50; }
+.widget-name { font-size: 1.25rem; font-weight: 500; color: #e5e5e5; }
+.widget-avatar { width: 42px; height: 42px; border-radius: 4px; object-fit: cover; }
+
+.scroll-container { width: 100%; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.view-panel { width: 100%; padding-top: 14vh; padding-right: 4vw; min-height: 100vh; }
+.view-panel.hidden { display: none; }
+
+/* Home view layout specs */
+.billboard { margin-bottom: 3.5rem; max-width: 700px; min-height: 220px; }
+.billboard-title { font-size: 4rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 1rem; color: #f5f5f5; }
+.billboard-desc { color: #aaaaaa; font-size: 1.25rem; line-height: 1.5; font-weight: 300; }
+
+.catalog-row { margin-bottom: 3.5rem; }
+.row-heading { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.2rem; color: #e5e5e5; }
+.movie-slider { display: flex; gap: 1.2rem; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); padding: 0.5rem 0; }
+
+.movie-card { min-width: 19vw; aspect-ratio: 16/9; border-radius: 4px; overflow: hidden; border: 3.5px solid transparent; transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.movie-box { width: 100%; height: 100%; display: flex; align-items: flex-end; padding: 1.2rem; box-shadow: inset 0 -45px 60px rgba(0,0,0,0.85); background-size: cover; background-position: center; }
+.movie-box h3 { font-size: 1.2rem; color: #b3b3b3; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+
+.movie-card.active { transform: scale(1.08); border-color: #e5e5e5; box-shadow: 0 12px 30px rgba(0,0,0,0.8); }
+.movie-card.active .movie-box h3 { color: #fff; }
+
+/* ---------------- SEARCH MATRIX VIEWS ---------------- */
+.search-box-frame { width: 100%; max-width: 600px; background-color: #333; padding: 1.2rem 2rem; border-radius: 4px; font-size: 1.4rem; color: #aaa; margin-bottom: 4rem; border: 2px solid transparent; }
+.search-box-frame.focused { border-color: #e5e5e5; color: #fff; background-color: #444; }
+.search-results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+/* ---------------- REAL MORE INFO SLIDE MODAL ---------------- */
+.info-modal-overlay { position: fixed; inset: 0; background-color: rgba(0,0,0,0.7); z-index: 400; display: flex; align-items: flex-end; padding: 8vh 8vw; }
+.info-modal-overlay.hidden { display: none; }
+.info-modal-card { background-color: #181818; width: 100%; max-width: 900px; padding: 3.5rem; border-radius: 6px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); border: 1px solid rgba(255,255,255,0.05); animation: modalSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+.info-modal-title { font-size: 3rem; font-weight: 800; margin-bottom: 1.5rem; }
+.info-modal-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem; }
+.match-badge { color: #46d369; font-weight: 700; font-size: 1.1rem; }
+.year-badge, .maturity-badge { border: 1px solid rgba(255,255,255,0.4); padding: 0.1rem 0.5rem; font-size: 0.9rem; border-radius: 3px; color: #ccc; }
+.info-modal-desc { font-size: 1.3rem; line-height: 1.6; color: #ccc; margin-bottom: 2.5rem; font-weight: 300; }
+.info-actions-hint { font-size: 1.1rem; color: #e50914; font-weight: 700; letter-spacing: 1px; }
+@keyframes modalSlideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* ---------------- 1:1 REALISTIC NATIVE TV MOVIE PLAYER ---------------- */
+.player-overlay { position: fixed; inset: 0; background-color: #000; z-index: 500; display: flex; align-items: center; justify-content: center; }
+.player-overlay.hidden { display: none; }
+.player-overlay video { width: 100%; height: 100%; object-fit: contain; }
+
+.player-controls { position: absolute; inset: 0; z-index: 510; display: flex; flex-direction: column; justify-content: space-between; padding: 6vh 6vw; transition: opacity 0.4s ease; opacity: 1; }
+.player-controls.fade-out { opacity: 0; }
+
+.player-gradient-top { position: absolute; top: 0; left: 0; right: 0; height: 25vh; background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%); z-index: -1; }
+.player-gradient-bottom { position: absolute; bottom: 0; left: 0; right: 0; height: 35vh; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%); z-index: -1; }
+
+.player-header { animation: playerLoad 0.4s ease-out; }
+.back-hint { font-size: 1.1rem; color: #b3b3b3; margin-bottom: 0.8rem; }
+.player-movie-title { font-size: 2.8rem; font-weight: 800; }
+
+.player-footer { width: 100%; display: flex; flex-direction: column; gap: 1.5rem; animation: playerLoad 0.4s ease-out; }
+.scrub-timeline { width: 100%; }
+.scrub-bar-total { width: 100%; height: 6px; background-color: rgba(255,255,255,0.2); border-radius: 3px; position: relative; }
+.scrub-bar-progress { height: 100%; width: 0%; background-color: #e50914; border-radius: 3px; }
+
+.player-hud-row { display: flex; justify-content: space-between; align-items: center; }
+.hud-left-controls { display: flex; align-items: center; gap: 1.5rem; }
+
+/* Netflix-Style TV Button States */
+.hud-btn { width: 50px; height: 50px; border-radius: 50%; color: #b3b3b3; display: flex; align-items: center; justify-content: center; background-color: rgba(0,0,0,0.4); border: 2.5px solid transparent; transition: all 0.2s; position: relative; }
+.hud-btn svg { width: 26px; height: 26px; }
+.hud-btn.active { color: #fff; border-color: #fff; transform: scale(1.1); background-color: rgba(255,255,255,0.1); }
+.hud-btn-subtext { position: absolute; left: 65px; white-space: nowrap; font-size: 1.1rem; color: #ccc; font-weight: 500; display: none; }
+.hud-btn.active .hud-btn-subtext { display: block; }
+
+.playback-time-label { font-size: 1.3rem; color: #e5e5e5; font-variant-numeric: tabular-nums; }
+@keyframes playerLoad { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ---------------- CARD INNER LOGO GRAPHIC FORMATTING ---------------- */
+.movie-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+}
+
+.card-logo-img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain; /* Prevents stretching out of original ratios */
+  pointer-events: none;
+  display: block;
+}
+
+/* --- FIXED BILLBOARD CONTAINMENT ZONE --- */
+.billboard {
+  margin-bottom: 2.5rem;
+  max-width: 650px;
+  min-height: 160px; /* Reduced to stop pushing content rails down layout */
+}
+
+.billboard-title-wrapper {
+  min-height: 90px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Hard explicit maximum size limits for the primary banner display graphic */
+.billboard-logo-img {
+  max-width: 320px;
+  max-height: 90px;
+  object-fit: contain;
+  display: block;
+}
+
+/* --- FIXED POPULAR ROW MOVIE CARDS TRACK --- */
+.movie-slider {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0.5rem 0;
+  align-items: center;
+}
+
+/* Fixed 16:9 Television Viewport Framework Box sizing constraints */
+.movie-card { 
+  width: 17vw;
+  min-width: 220px;
+  max-width: 260px;
+  aspect-ratio: 16 / 9; 
+  border-radius: 4px; 
+  overflow: hidden; 
+  border: 3.5px solid transparent; 
+  transition: all 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  flex-shrink: 0; /* Prevents rows from crushing container aspect dimensions */
+}
+
+.movie-box { 
+  width: 100%; 
+  height: 100%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  padding: 0.5rem;
+  box-shadow: inset 0 -30px 40px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+/* Card inner image asset lock containment constraints rules */
+.card-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Forces the embedded image asset to cleanly adapt to 16:9 space frame box */
+  pointer-events: none;
+  display: block;
+}
+
+/* Active Highlight Focus pop out scales */
+.movie-card.active { 
+  transform: scale(1.06); 
+  border-color: #e5e5e5; 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.8); 
+}
+/* --- FIXED BILLBOARD TEXT RESTORATION --- */
+.billboard-title {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.billboard-title-wrapper {
+  min-height: auto; /* Remove the extra image spacer height cushion */
+  margin-bottom: 0.8rem;
+}
+
+/* ---------------- 1:1 REALISTIC NATIVE TV HUD LAYOUT ---------------- */
+.player-hud-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.hud-left-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; /* Clean even gap between all buttons */
+}
+
+/* Base styling for player circular buttons */
+.hud-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #b3b3b3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 2.5px solid transparent;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.hud-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* High contrast active focus ring */
+.hud-btn.active {
+  color: #fff;
+  border-color: #fff;
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* FIXED: Text labels now cleanly float centered above the buttons, not overlapping */
+.hud-btn-subtext {
+  position: absolute;
+  bottom: 65px; /* Floats above the icon button */
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.95rem;
+  color: #fff;
+  font-weight: 700;
+  background-color: rgba(20, 20, 20, 0.9);
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.hud-btn.active .hud-btn-subtext {
+  display: block;
+}
+
+/* --- FIXED DYNAMIC TV VOLUME POPUP SLIDER --- */
+.hud-volume-popup {
+  position: absolute;
+  bottom: 65px; /* Floats above the volume button row */
+  left: 50%;
+  transform: translateX(-50%) translateY(5px);
+  background-color: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+/* Animate the volume popup sliding cleanly upward when focused */
+.hud-btn.active .hud-volume-popup {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.volume-slider-track {
+  width: 80px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.volume-slider-progress {
+  height: 100%;
+  width: 100%;
+  background-color: #e50914; /* Netflix Red progress indicator */
+  border-radius: 2px;
+  transition: width 0.15s cubic-bezier(0.16, 1, 0.3, 1); /* Sleek animation transition */
+}
+
+#volumePercentageLabel {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Strictly prevent default text from displaying over the volume popup */
+#hud-volume-control .hud-btn-subtext {
+  display: none !important;
+}
